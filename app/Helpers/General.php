@@ -6,6 +6,8 @@ use App\Models\Log;
 use App\Http\Resources\LogResource;
 use App\Models\Department;
 use App\Models\Employee;
+use DB;
+use GuzzleHttp\Client;
 
 class General
 {
@@ -96,8 +98,22 @@ class General
         }
     }
 
+    //all my employees
     public function allMyEmployees()
     {
         return Employee::with(['attendances','department'])->where('organization_id', '=', auth()->user()->organization_id)->get();
+    }
+
+    //sync attendance details
+    public function syncAttendance()
+    {
+        $lastRecord = DB::table('attendances')->latest('id')->first();
+        $client = new Client([
+            'headers' => ['Content-Type' => 'application/json']
+        ]);
+        $response = $client->get('http://127.0.0.1:8090/attendance',
+            ['body' => json_encode(['date' => $lastRecord->auth_date ])]
+        );
+        dd($response->getBody()->getContents());
     }
 }

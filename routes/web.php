@@ -21,3 +21,5 @@ Route::get('/',  [App\Http\Controllers\AttendanceController::class, 'page'])->na
 Route::get('/batch', function () {
    return $emp = Excel::download(new EmployeeExport(), 'employees-template.xlsx');
 });
+
+Route::get('/sync-attendance', [App\Helpers\General::class, 'syncAttendance']);

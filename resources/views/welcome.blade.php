@@ -28,7 +28,7 @@
                             <input type="date" class="form-control" id="date">
                           </div>
                           <button type="submit" id="clickCheck" onclick="loadDoc()" class="btn btn-primary btn-sm">Submit</button>
-                          <a   target="_blank" href="http://127.0.0.1:8090/attendance" type="submit" class="btn btn-primary btn-sm m-5">Sync Attendance</a>
+                          <a   target="_blank" href="{{ url('sync-attendance') }}" title="Note this action will take long to process" type="submit" class="btn btn-primary btn-sm m-5">Sync Attendance</a>
                     </div>
                     <br><br>
                     <table class="table table-striped">
