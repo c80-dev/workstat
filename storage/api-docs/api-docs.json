@@ -1,0 +1,1108 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Work Stat Lite Api Documentation",
+        "description": "Work Stat Lite Api Documentation",
+        "contact": {
+            "email": "orutu1@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://wslite-backend.herokuapp.com/api//",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/attendance": {
+            "post": {
+                "tags": [
+                    "Attendance Store"
+                ],
+                "summary": "Create Employee Attendance",
+                "description": "Create Employee Attendance",
+                "operationId": "CreateAttendance",
+                "parameters": [
+                    {
+                        "name": "employee_id",
+                        "in": "query",
+                        "description": "Employee id",
+                        "required": true
+                    },
+                    {
+                        "name": "auth_date",
+                        "in": "query",
+                        "description": "Authenticated date",
+                        "required": true
+                    },
+                    {
+                        "name": "clock_in",
+                        "in": "query",
+                        "description": "Clock in time",
+                        "required": true
+                    },
+                    {
+                        "name": "clock_out",
+                        "in": "query",
+                        "description": "Clock out time"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendance marked successfully"
+                    }
+                }
+            }
+        },
+        "/daily-attendance": {
+            "post": {
+                "tags": [
+                    "Daily Attendance"
+                ],
+                "summary": "Get employee daily attendace",
+                "description": "Get employee daily attendace",
+                "operationId": "GetDailyAttendance",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "date",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        },
+        "/range-attendance": {
+            "post": {
+                "tags": [
+                    "Daily Attendance"
+                ],
+                "summary": "Get employee daily attendace",
+                "description": "Get employee daily attendace",
+                "operationId": "GetDailyAttendance",
+                "parameters": [
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "date from",
+                        "required": true
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "date toe",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authnticate"
+                ],
+                "description": "Admin login",
+                "operationId": "authnticateAdmin",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Administrator email address",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Administrator password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "summary": "Logout admin",
+                "description": "logout admin",
+                "operationId": "logoutAdmin",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "user token",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        },
+        "/refresh": {
+            "post": {
+                "tags": [
+                    "Token"
+                ],
+                "summary": "Refresh Token",
+                "description": "Returns new token",
+                "operationId": "refreshToken",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/user-profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get admin profile",
+                "description": "Returns admin profile",
+                "operationId": "userPorfile",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/departments": {
+            "get": {
+                "tags": [
+                    "Show All Departments"
+                ],
+                "description": "Show all departments",
+                "operationId": "AllDepartments",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Sorry no record was found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Create department"
+                ],
+                "description": "Create  department",
+                "operationId": "CreateDepartment",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter department name"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Enter department description"
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": "query",
+                        "description": "Enter department  parent_id"
+                    },
+                    {
+                        "name": "hod_id",
+                        "in": "query",
+                        "description": "Enter department hod_id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Department created successfully"
+                    },
+                    "400": {
+                        "description": "Sorry unable to create department"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/departments/{id}": {
+            "get": {
+                "tags": [
+                    "Show Department"
+                ],
+                "description": "Show single department",
+                "operationId": "ShowDepartment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Enter department id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Sorry this record do not exist"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Delete Department"
+                ],
+                "summary": "Delete existing department",
+                "description": "Deletes a department and returns no content",
+                "operationId": "deleteDepartment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Department Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Sorry this records do not exist"
+                    },
+                    "401": {
+                        "description": "Sorry unable to delete department"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Update department"
+                ],
+                "description": "Update  department",
+                "operationId": "UpdateDepartment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Enter id"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter department name"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Enter department description"
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": "query",
+                        "description": "Enter department  parent_id"
+                    },
+                    {
+                        "name": "hod_id",
+                        "in": "query",
+                        "description": "Enter department hod_id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Department updated successfully"
+                    },
+                    "400": {
+                        "description": "Sorry unable to update department"
+                    },
+                    "404": {
+                        "description": "Sorry this data do not exist"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/employees": {
+            "get": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Get list of all employees",
+                "description": "Returns list of employees",
+                "operationId": "GetEmployees",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/employees-json": {
+            "post": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Onboard employees",
+                "description": "Onboard employees",
+                "operationId": "Onboard employees",
+                "parameters": [
+                    {
+                        "name": "employees",
+                        "in": "query",
+                        "description": "Employee json array",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/employees-register": {
+            "post": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Register",
+                "description": "Register employee",
+                "operationId": "postEmployee",
+                "parameters": [
+                    {
+                        "name": "employee_id",
+                        "in": "query",
+                        "description": "Employee id",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Employee name",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Employee email address"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Employee phone number"
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "description": "Employee gender"
+                    },
+                    {
+                        "name": "department",
+                        "in": "query",
+                        "description": "Employee department"
+                    },
+                    {
+                        "name": "designation",
+                        "in": "query",
+                        "description": "Employee designation"
+                    },
+                    {
+                        "name": "image_path",
+                        "in": "query",
+                        "description": "Employee image_path"
+                    },
+                    {
+                        "name": "appointment_date",
+                        "in": "query",
+                        "description": "Appointment date"
+                    },
+                    {
+                        "name": "termination_date",
+                        "in": "query",
+                        "description": "Termination date"
+                    },
+                    {
+                        "name": "card_no",
+                        "in": "query",
+                        "description": "Card number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Employee created successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/create-image": {
+            "post": {
+                "tags": [
+                    "Employee image path created"
+                ],
+                "summary": "create image paht",
+                "description": "create iamge path for employees",
+                "operationId": "crete image path",
+                "parameters": [
+                    {
+                        "name": "image_path",
+                        "in": "query",
+                        "description": "image path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/employee-show": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Get employee details",
+                "description": "Returns employee details",
+                "operationId": "getEmployeeDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/employee-update": {
+            "patch": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Update employee records",
+                "description": "Update employee records",
+                "operationId": "updateEmployee",
+                "parameters": [
+                    {
+                        "name": "employee_id",
+                        "in": "query",
+                        "description": "Employee id",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Employee name",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Employee email address"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Employee phone number"
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "description": "Employee gender"
+                    },
+                    {
+                        "name": "department",
+                        "in": "query",
+                        "description": "Employee department"
+                    },
+                    {
+                        "name": "designation",
+                        "in": "query",
+                        "description": "Employee designation"
+                    },
+                    {
+                        "name": "image_path",
+                        "in": "query",
+                        "description": "Employee image_path"
+                    },
+                    {
+                        "name": "appointment_date",
+                        "in": "query",
+                        "description": "Appointment date"
+                    },
+                    {
+                        "name": "termination_date",
+                        "in": "query",
+                        "description": "Termination date"
+                    },
+                    {
+                        "name": "card_no",
+                        "in": "query",
+                        "description": "Card number"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/profile-image": {
+            "patch": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Add profile picture",
+                "description": "Add profile picture",
+                "operationId": "Add profile picture",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Employee id",
+                        "required": true
+                    },
+                    {
+                        "name": "image_path",
+                        "in": "query",
+                        "description": "Employee id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/employee-delete": {
+            "delete": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Delete employee records",
+                "description": "Delete employee records",
+                "operationId": "deleteEmployee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/holidays": {
+            "get": {
+                "tags": [
+                    "Holidays"
+                ],
+                "summary": "Get list of all Holidays",
+                "description": "Returns list of Holidays",
+                "operationId": "GetHolidays",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/holiday-create": {
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Holiday create",
+                "description": "Holiday create",
+                "operationId": "postSchedule",
+                "parameters": [
+                    {
+                        "name": "Name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "date",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Holiday created successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/organizations": {
+            "get": {
+                "tags": [
+                    "organizations"
+                ],
+                "summary": "Get list of all organizations",
+                "description": "Returns list of organizations",
+                "operationId": "GetOrganizations",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/organization-create": {
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Organization create",
+                "description": "Organization create",
+                "operationId": "postOrganization",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": true
+                    },
+                    {
+                        "name": "domain",
+                        "in": "query",
+                        "description": "organization domain",
+                        "required": true
+                    },
+                    {
+                        "name": "image_path",
+                        "in": "query",
+                        "description": "office logo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organization created successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/organization-show": {
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Get organization details",
+                "description": "Returns organization details",
+                "operationId": "getOrganizationDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Json"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/organization-update": {
+            "patch": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Update Organization records",
+                "description": "Update Organization records",
+                "operationId": "updateOrganization",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email"
+                    },
+                    {
+                        "name": "domain",
+                        "in": "query",
+                        "description": "organization domain"
+                    },
+                    {
+                        "name": "image_path",
+                        "in": "query",
+                        "description": "office logo"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/organization-delete": {
+            "delete": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Delete organization records",
+                "description": "Delete organization records",
+                "operationId": "deleteOrganization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/schedules": {
+            "get": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Get list of all Schedules",
+                "description": "Returns list of Schedules",
+                "operationId": "GetSchedules",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/schedule-create": {
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Register",
+                "description": "Register Schedule",
+                "operationId": "postSchedule",
+                "parameters": [
+                    {
+                        "name": "Title",
+                        "in": "query",
+                        "description": "Title",
+                        "required": true
+                    },
+                    {
+                        "name": "week_days",
+                        "in": "query",
+                        "description": "Week Days Json",
+                        "required": true
+                    },
+                    {
+                        "name": "schedule_in",
+                        "in": "query",
+                        "description": "Schedule start time",
+                        "required": true
+                    },
+                    {
+                        "name": "schedule_out",
+                        "in": "query",
+                        "description": "Schedule work time",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule created successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/schedule-show": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Get schedule",
+                "description": "Returns schedule",
+                "operationId": "getSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/schedule-update": {
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Register",
+                "description": "Update Schedule",
+                "operationId": "postSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    },
+                    {
+                        "name": "Title",
+                        "in": "query",
+                        "description": "Title"
+                    },
+                    {
+                        "name": "week_days",
+                        "in": "query",
+                        "description": "Week Days Json"
+                    },
+                    {
+                        "name": "schedule_in",
+                        "in": "query",
+                        "description": "Schedule start time"
+                    },
+                    {
+                        "name": "schedule_out",
+                        "in": "query",
+                        "description": "Schedule work time"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule updated successfully"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/schedule-delete": {
+            "delete": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Delete Schedule",
+                "description": "Delete Schedul",
+                "operationId": "deleteSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/password-reset": {
+            "patch": {
+                "tags": [
+                    "Password Reset"
+                ],
+                "summary": "Update Password Reset records",
+                "description": "Update Password Reset records",
+                "operationId": "updatePassword Reset",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true
+                    },
+                    {
+                        "name": "old_password",
+                        "in": "query",
+                        "description": "Enter old password",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Enter new password"
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Enter new password confirmation"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Work Stat Lite",
+            "description": "API Endpoints of Work Stat Lite"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
